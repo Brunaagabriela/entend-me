@@ -1,13 +1,27 @@
-# React + Vite
+# entend.me 🧠💜
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**entend.me** é um web app criado com muito carinho para auxiliar relacionamentos em que uma ou ambas as pessoas lidam com transtornos como bipolaridade ou TDAH. Através da percepção de comportamentos, o app ajuda a identificar padrões como TPM, crises maníacas ou episódios depressivos, promovendo empatia e comunicação mais saudável.
 
-Currently, two official plugins are available:
+## ✨ Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Registro de percepções diárias de humor e comportamento
+- Detecção de padrões com sugestões (ex: TPM, crise bipolar)
+- Controle de acesso exclusivo com login autenticado via Firebase
+- Interface com animação interativa 
+- Histórico de percepções
+- Projeto pessoal
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologias
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- [React](https://reactjs.org/)
+- [Firebase (Auth + Firestore)](https://firebase.google.com/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Lottie](https://lottiefiles.com/) para animações
 
+## 🚀 Como rodar o projeto
+
+1. Clone este repositório:
+
+```bash
+git clone https://github.com/Brunaagabriela/entend.me.git
+cd entend.me
