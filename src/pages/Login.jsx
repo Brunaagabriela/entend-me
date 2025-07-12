@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Lottie from "lottie-react";
 import macacoAnimacao from "../assets/macaco.json"; // Certifique-se de que este caminho está correto
 import logo from "../assets/Logoentend.me.png"; // Certifique-se de que este caminho está correto
@@ -10,6 +10,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const lottieRef = useRef();
 
@@ -18,24 +19,23 @@ export default function Login() {
 
   const login = async (e) => {
     e.preventDefault();
+    if (loading) return;
+
+    setLoading(true);
+    setErro("");
+
     try {
       const resultado = await signInWithEmailAndPassword(auth, email, senha);
-      setErro("");
       const usuario = resultado.user;
 
-      // Direcionamento baseado no email do usuário
-      if (
-        usuario.email === "wellington.gonzalez@hotmail.com" ||
-        usuario.email === "wellingtoong94@gmail.com"
-      ) {
-        navigate("/nova-observacao");
-      } else {
-        navigate("/ops");
-      }
+      // Agora, qualquer usuário que fizer login com sucesso será redirecionado.
+      navigate("/nova-observacao");
     } catch (err) {
       setErro("Erro ao fazer login. Verifique suas credenciais.");
       // Opcional: Adicionar mais detalhes do erro para depuração, se necessário
       console.error("Erro de login:", err.code, err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,7 +67,7 @@ export default function Login() {
             className="w-24 h-24"
             // Opcional: Adicionar um `onDOMLoaded` ou `onComplete` para garantir que a animação esteja pronta para ser controlada
             // Ou garantir que a primeira animação neutra seja acionada ao carregar o componente
-            onDOMLoaded={() => llottieRef.current?.playSegments([0, 20], true)}
+            onDOMLoaded={() => lottieRef.current?.playSegments([0, 20], true)}
           />
         </div>
 
@@ -153,10 +153,21 @@ export default function Login() {
 
           {erro && <p className="text-red-500 text-sm text-center">{erro}</p>}
 
-          <button className="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300">
-            LOGIN
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300 disabled:bg-pink-300 disabled:cursor-not-allowed"
+          >
+            {loading ? "Entrando..." : "LOGIN"}
           </button>
         </form>
+
+        <p className="text-center text-sm text-gray-600 pt-4">
+          Não tem uma conta?{" "}
+          <Link to="/cadastro" className="font-medium text-pink-600 hover:underline">
+            Cadastre-se
+          </Link>
+        </p>
 
         {/* Logo no canto inferior direito */}
         <div className="absolute bottom-4 right-4 flex items-center gap-2 opacity-60">
